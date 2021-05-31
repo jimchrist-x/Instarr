@@ -1,5 +1,6 @@
 from instabot import Bot
 import argparse
+import os
 from creds import *
 class Instabot:
 	def __init__(self):
@@ -7,17 +8,22 @@ class Instabot:
 		self.password = PASSWORD
 		self.bot = Bot()
 		self.bot.login(username=self.username, password=self.password)
+		self.followers = self.bot.get_user_followers(USERNAME)
+		self.following = self.bot.get_user_following(USERNAME)
 	def print_unfollowers(self):
-		followers = self.bot.get_user_followers(USERNAME)
-		following = self.bot.get_user_following(USERNAME)
-		for elem in following:
-			if elem in followers:
+		for elem in self.following:
+			if elem in self.followers:
 				pass
 			else:
 				user_name = self.bot.get_username_from_user_id(elem)
 				print(user_name)
 	def print_unfollowed_followers(self):
-		pass
+		for elem in self.followers:
+			if elem in self.following:
+				pass
+			else:
+				user_name = self.bot.get_username_from_user_id(elem)
+				print(user_name)
 	def unfollow_unfollowers(self):
 		pass
 	def follow_followers(self):
@@ -26,3 +32,5 @@ class Instabot:
 if __name__ == '__main__':
 	instabot = Instabot()
 	instabot.print_unfollowers()
+	instabot.print_unfollowed_followers()
+	os.system('del /Q config')
