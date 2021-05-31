@@ -1,3 +1,4 @@
 /packets
 /config
 creds.py
+/__pycache__
