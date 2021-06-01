@@ -70,6 +70,7 @@ class GUI:
 				logged_in = True
 				login.destroy()
 		login = tk.Tk()
+		login.wm_iconbitmap('images/logo.ico')
 		login.title('Login')
 		login.geometry("250x250")
 		login.resizable(0, 0)
@@ -89,6 +90,7 @@ class GUI:
 		login.mainloop()
 	def main():
 		root = tk.Tk()
+		root.wm_iconbitmap('images/logo.ico')
 		root.title('Instarr')
 		root.geometry('1000x600')
 		root.resizable(0, 0)
