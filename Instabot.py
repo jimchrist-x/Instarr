@@ -20,6 +20,9 @@ class Instabot:
 			else:
 				user_name = self.bot.get_username_from_user_id(elem)
 				print(user_name)
+				unfollowers_text_box.configure(state="normal")
+				unfollowers_text_box.insert('end', user_name + '\n')
+				unfollowers_text_box.configure(state="disabled")
 
 	def print_unfollowed_followers(self):
 		for elem in self.followers:
@@ -28,6 +31,9 @@ class Instabot:
 			else:
 				user_name = self.bot.get_username_from_user_id(elem)
 				print(user_name)
+				unfollowed_followers_text_box.configure(state="normal")
+				unfollowed_followers_text_box.insert('end', user_name + '\n')
+				unfollowed_followers_text_box.configure(state="disabled")
 
 	def unfollow_unfollowers(self):
 		for elem in self.following:
@@ -84,11 +90,24 @@ class GUI:
 		root.title('Instarr')
 		root.geometry('1000x600')
 		root.resizable(0, 0)
-		tk.Frame(root, bg='lightgrey').place(x=0, y=0, height=1000, width=250)
-		tk.Frame(root, bg='red').place(x=250, y=0, height=1000, width=250)
-		tk.Frame(root, bg='blue').place(x=500, y=0, height=1000, width=250)
-		tk.Frame(root, bg='yellow').place(x=750, y=0, height=1000, width=250)
-		tk.Button(root, text='Get unfollowers', command=instabot.print_unfollowers).place(x=100, y=50)
+		f1 = tk.Frame(root, bg='lightgrey')
+		f2 = tk.Frame(root, bg='red')
+		f3 = tk.Frame(root, bg='blue')
+		f4 = tk.Frame(root, bg='yellow')
+		f1.place(x=0, y=0, height=1000, width=250)
+		f2.place(x=250, y=0, height=1000, width=250)
+		f3.place(x=500, y=0, height=1000, width=250)
+		f4.place(x=750, y=0, height=1000, width=250)
+		tk.Button(f1, text='Get unfollowers', command=instabot.print_unfollowers).pack()
+		global unfollowers_text_box
+		unfollowers_text_box = tk.Text(f1, height=16, width=100)
+		unfollowers_text_box.pack()
+		unfollowers_text_box.configure(state="disabled")
+		tk.Button(f1, text='Get unfollowed followers', command=instabot.print_unfollowed_followers).pack()
+		global unfollowed_followers_text_box
+		unfollowed_followers_text_box = tk.Text(f1, height=16, width=100)
+		unfollowed_followers_text_box.pack()
+		unfollowed_followers_text_box.configure(state="disabled")
 		root.mainloop()
 if __name__ == '__main__':
 	#instabot.print_unfollowers()
